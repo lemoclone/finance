@@ -9,6 +9,7 @@ public class MonthPay {
 		this.month = month;
 		this.interest = interest;
 		this.principal = principal;
+		this.total = interest + principal;
 	}
 	public int getMonth() {
 		return month;
@@ -22,4 +23,10 @@ public class MonthPay {
 	public double getPrincipal() {
 		return principal;
 	}
+	@Override
+	public String toString() {
+		return "MonthPay [month=" + month + ", total=" + total + ", interest=" + interest + ", principal=" + principal
+				+ "]";
+	}
+	
 }

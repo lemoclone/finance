@@ -1,4 +1,4 @@
-package com.orangekit.finance;
+package org.orangekit.finance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,6 @@ public class Balance {
 	private double creditProvidentAmount;
 	private double creditCommercialAmount;
 	private int creditYear;
-	private List<MonthPay> list;
 	private float[] providentRates = {2.75f,3.25f};
 	private float[] commercialRates = {4.35f,4.75f,4.90f};
 	private float providentRate;

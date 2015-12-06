@@ -1,4 +1,4 @@
-package com.orangekit.finance;
+package org.orangekit.finance;
 
 public class MonthPay {
 	private int month;

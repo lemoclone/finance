@@ -15,7 +15,15 @@ public class Balance {
 	private float providentRateDiscount;
 	private float commercialRateDiscount;
 
-	
+
+	public float getProvidentRate() {
+		return providentRate*1200;
+	}
+
+	public float getCommercialRate() {
+		return commercialRate*1200;
+	}
+
 	public Balance(double creditProvidentAmount, double creditCommercialAmount, int creditYear,
 			float[] pRates, float[] cRates,float providentRateDiscount,float commercialRateDiscount) {
 		this.creditProvidentAmount = creditProvidentAmount;
@@ -73,7 +81,6 @@ public class Balance {
 	}
 	
 	public List<MonthPay> getEqualPrincipalAndInterest(){
-		System.out.println("pRate: " + providentRate*12 + " cRate: "+commercialRate*12);
 		List<MonthPay> pList = calEqualPrincipalAndInterest(creditProvidentAmount,creditYear,providentRate);
 		List<MonthPay> cList = calEqualPrincipalAndInterest(creditCommercialAmount,creditYear,commercialRate);
 		if(pList.isEmpty())
@@ -104,7 +111,7 @@ public class Balance {
 		return res;
 	}
 	
-	//[è´·æ¬¾æœ¬é‡‘Ã—æœˆåˆ©ç‡Ã—ï¼ˆ1+æœˆåˆ©ç‡ï¼‰^è¿˜æ¬¾æœˆæ•°]Ã·[ï¼ˆ1+æœˆåˆ©ç‡ï¼‰^è¿˜æ¬¾æœˆæ•°ï¼1]
+	//[´û¿î±¾½ğ¡ÁÔÂÀûÂÊ¡Á£¨1+ÔÂÀûÂÊ£©^»¹¿îÔÂÊı]¡Â[£¨1+ÔÂÀûÂÊ£©^»¹¿îÔÂÊı£­1]
 	private List<MonthPay> calEqualPrincipalAndInterest(double amount,int yy,float rate){
 		List<MonthPay> res = new ArrayList<MonthPay>();
 		double unPay = amount;
@@ -130,6 +137,8 @@ public class Balance {
 
 	public void setCreditYear(int creditYear) {
 		this.creditYear = creditYear;
+		providentRate = getProvidentRate(creditYear)*providentRateDiscount/1200;
+		commercialRate = getCommercialRate(creditYear)*commercialRateDiscount/1200;
 	}
 
 	public void setProvidentRateDiscount(float providentRateDiscount) {
@@ -140,5 +149,18 @@ public class Balance {
 	public void setCommercialRateDiscount(float commercialRateDiscount) {
 		this.commercialRateDiscount = commercialRateDiscount;
 		commercialRate = getCommercialRate(creditYear)*commercialRateDiscount/1200;
+	}
+
+	@Override
+	public String toString() {
+		return "Balance{" +
+				"creditProvidentAmount=" + creditProvidentAmount +
+				", creditCommercialAmount=" + creditCommercialAmount +
+				", providentRate=" + providentRate +
+				", commercialRate=" + commercialRate +
+				", creditYear=" + creditYear +
+				", providentRateDiscount=" + providentRateDiscount +
+				", commercialRateDiscount=" + commercialRateDiscount +
+				'}';
 	}
 }

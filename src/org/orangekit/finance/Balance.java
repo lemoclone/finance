@@ -3,26 +3,32 @@ package org.orangekit.finance;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 平衡表
+ * @author Kyle
+ *
+ */
 public class Balance {
-	private double creditProvidentAmount;
-	private double creditCommercialAmount;
-	private int creditYear;
-	private float[] providentRates = {2.75f,3.25f};
-	private float[] commercialRates = {4.35f,4.75f,4.90f};
-	private float providentRate;
-	private float commercialRate;
-	private float providentRateDiscount;
-	private float commercialRateDiscount;
+	private double creditProvidentAmount; //公积金贷款额度
+	private double creditCommercialAmount;//商业贷款额度
+	private int creditYear;				//贷款年数
+	private float[] providentRates = {2.75f,3.25f};//公积金利率表
+	private float[] commercialRates = {4.35f,4.75f,4.90f};//商业利率表
+	private float providentRate; //公积金利率
+	private float commercialRate;//商业利率
+	private float providentRateDiscount;//公积金利率折扣
+	private float commercialRateDiscount;//商业利率折扣
 
-
-	public float getProvidentRate() {
-		return providentRate*1200;
-	}
-
-	public float getCommercialRate() {
-		return commercialRate*1200;
-	}
-
+	/**
+	 * 构造
+	 * @param creditProvidentAmount 公积金数额
+	 * @param creditCommercialAmount 商贷数额
+	 * @param creditYear 年限
+	 * @param pRates 公积金利率
+	 * @param cRates 商贷利率
+	 * @param providentRateDiscount 公积金折扣
+	 * @param commercialRateDiscount 商贷折扣
+	 */
 	public Balance(double creditProvidentAmount, double creditCommercialAmount, int creditYear,
 			float[] pRates, float[] cRates,float providentRateDiscount,float commercialRateDiscount) {
 		this.creditProvidentAmount = creditProvidentAmount;
@@ -44,6 +50,28 @@ public class Balance {
 		commercialRate = getCommercialRate(creditYear)*commercialRateDiscount/1200;
 	}
 	
+    /**
+     * 公积金利率
+     * @return 公积金贷款年利率
+     */
+	public float getProvidentRate() {
+		return providentRate*1200;
+	}
+
+    /**
+     * 商业利率
+     * @return 商业贷款年利率
+     */
+	public float getCommercialRate() {
+		return commercialRate*1200;
+	}
+
+	
+	/**
+	 * 公积金利率，根据年限区分
+	 * @param yy 年限
+	 * @return 利率
+	 */
 	private float getProvidentRate(int yy){
 		if(yy<=5){
 			return providentRates[0];
@@ -52,6 +80,11 @@ public class Balance {
 		}
 	}
 	
+	/**
+	 * 商贷利率，根据年限区分
+	 * @param yy 年限
+	 * @return 利率
+	 */
 	private float getCommercialRate(int yy){
 		if(yy<=1){
 			return commercialRates[0];
@@ -62,6 +95,10 @@ public class Balance {
 		}
 	}
 	
+	/**
+	 * 计算等额本金还款方式
+	 * @return 所有月份的还款额MonthPay
+	 */
 	public List<MonthPay> getEqualPrincipal(){
 		List<MonthPay> pList = calEqualPrincipal(creditProvidentAmount,creditYear,providentRate);
 		List<MonthPay> cList = calEqualPrincipal(creditCommercialAmount,creditYear,commercialRate);
@@ -79,6 +116,10 @@ public class Balance {
 		return res;
 	}
 	
+	/**
+	 * 计算等额本息还款方式
+	 * @return 所有月份的还款额MonthPay
+	 */
 	public List<MonthPay> getEqualPrincipalAndInterest(){
 		List<MonthPay> pList = calEqualPrincipalAndInterest(creditProvidentAmount,creditYear,providentRate);
 		List<MonthPay> cList = calEqualPrincipalAndInterest(creditCommercialAmount,creditYear,commercialRate);
@@ -96,7 +137,13 @@ public class Balance {
 		return res;
 	}
 	
-	
+	/**
+	 * 计算等额本金还款额
+	 * @param amount 金额
+	 * @param yy 年限
+	 * @param rate 月利率
+	 * @return 所有月份的还款额MonthPay
+	 */
 	private List<MonthPay> calEqualPrincipal(double amount,int yy,float rate){
 		List<MonthPay> res = new ArrayList<MonthPay>();
 		double unPay = amount;
@@ -110,7 +157,13 @@ public class Balance {
 		return res;
 	}
 	
-	//[贷款本金×月利率×（1+月利率）^还款月数]÷[（1+月利率）^还款月数－1]
+	/**
+	 * 计算等额本息还款额，[贷款本金×月利率×（1+月利率）^还款月数]÷[（1+月利率）^还款月数－1]
+	 * @param amount 金额
+	 * @param yy 年限
+	 * @param rate 月利率
+	 * @return 所有月份的还款额MonthPay
+	 */
 	private List<MonthPay> calEqualPrincipalAndInterest(double amount,int yy,float rate){
 		List<MonthPay> res = new ArrayList<MonthPay>();
 		double unPay = amount;
@@ -126,25 +179,45 @@ public class Balance {
 		return res;
 	}
 
+	/**
+	 * 设置公积金贷款金额
+	 * @param creditProvidentAmount 公积金贷款金额
+	 */
 	public void setCreditProvidentAmount(double creditProvidentAmount) {
 		this.creditProvidentAmount = creditProvidentAmount;
 	}
 
+	/**
+	 * 设置商业贷款金额
+	 * @param creditCommercialAmount 商业贷款金额
+	 */
 	public void setCreditCommercialAmount(double creditCommercialAmount) {
 		this.creditCommercialAmount = creditCommercialAmount;
 	}
 
+	/**
+	 * 设置还款年限
+	 * @param creditYear 年限
+	 */
 	public void setCreditYear(int creditYear) {
 		this.creditYear = creditYear;
 		providentRate = getProvidentRate(creditYear)*providentRateDiscount/1200;
 		commercialRate = getCommercialRate(creditYear)*commercialRateDiscount/1200;
 	}
 
+	/**
+	 * 设置公积金折扣
+	 * @param providentRateDiscount 折扣
+	 */
 	public void setProvidentRateDiscount(float providentRateDiscount) {
 		this.providentRateDiscount = providentRateDiscount;
 		providentRate = getProvidentRate(creditYear)*providentRateDiscount/1200;
 	}
 
+	/**
+	 * 设置商业贷款折扣
+	 * @param commercialRateDiscount 折扣
+	 */
 	public void setCommercialRateDiscount(float commercialRateDiscount) {
 		this.commercialRateDiscount = commercialRateDiscount;
 		commercialRate = getCommercialRate(creditYear)*commercialRateDiscount/1200;

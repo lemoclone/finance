@@ -3,24 +3,44 @@ package org.orangekit.finance;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * 平衡表
- * @author Kyle
+ * 平衡表.
  *
+ * @author Kyle
  */
 public class Balance {
+	
+	/** The credit provident amount. */
 	private double creditProvidentAmount; //公积金贷款额度
+	
+	/** The credit commercial amount. */
 	private double creditCommercialAmount;//商业贷款额度
+	
+	/** The credit year. */
 	private int creditYear;				//贷款年数
+	
+	/** The provident rates. */
 	private float[] providentRates = {2.75f,3.25f};//公积金利率表
+	
+	/** The commercial rates. */
 	private float[] commercialRates = {4.35f,4.75f,4.90f};//商业利率表
+	
+	/** The provident rate. */
 	private float providentRate; //公积金利率
+	
+	/** The commercial rate. */
 	private float commercialRate;//商业利率
+	
+	/** The provident rate discount. */
 	private float providentRateDiscount;//公积金利率折扣
+	
+	/** The commercial rate discount. */
 	private float commercialRateDiscount;//商业利率折扣
 
 	/**
-	 * 构造
+	 * 构造.
+	 *
 	 * @param creditProvidentAmount 公积金数额
 	 * @param creditCommercialAmount 商贷数额
 	 * @param creditYear 年限
@@ -51,7 +71,8 @@ public class Balance {
 	}
 	
     /**
-     * 公积金利率
+     * 公积金利率.
+     *
      * @return 公积金贷款年利率
      */
 	public float getProvidentRate() {
@@ -59,7 +80,8 @@ public class Balance {
 	}
 
     /**
-     * 商业利率
+     * 商业利率.
+     *
      * @return 商业贷款年利率
      */
 	public float getCommercialRate() {
@@ -68,7 +90,8 @@ public class Balance {
 
 	
 	/**
-	 * 公积金利率，根据年限区分
+	 * 公积金利率，根据年限区分.
+	 *
 	 * @param yy 年限
 	 * @return 利率
 	 */
@@ -81,7 +104,8 @@ public class Balance {
 	}
 	
 	/**
-	 * 商贷利率，根据年限区分
+	 * 商贷利率，根据年限区分.
+	 *
 	 * @param yy 年限
 	 * @return 利率
 	 */
@@ -96,7 +120,8 @@ public class Balance {
 	}
 	
 	/**
-	 * 计算等额本金还款方式
+	 * 计算等额本金还款方式.
+	 *
 	 * @return 所有月份的还款额MonthPay
 	 */
 	public List<MonthPay> getEqualPrincipal(){
@@ -117,7 +142,8 @@ public class Balance {
 	}
 	
 	/**
-	 * 计算等额本息还款方式
+	 * 计算等额本息还款方式.
+	 *
 	 * @return 所有月份的还款额MonthPay
 	 */
 	public List<MonthPay> getEqualPrincipalAndInterest(){
@@ -138,7 +164,8 @@ public class Balance {
 	}
 	
 	/**
-	 * 计算等额本金还款额
+	 * 计算等额本金还款额.
+	 *
 	 * @param amount 金额
 	 * @param yy 年限
 	 * @param rate 月利率
@@ -158,7 +185,8 @@ public class Balance {
 	}
 	
 	/**
-	 * 计算等额本息还款额，[贷款本金×月利率×（1+月利率）^还款月数]÷[（1+月利率）^还款月数－1]
+	 * 计算等额本息还款额，[贷款本金×月利率×（1+月利率）^还款月数]÷[（1+月利率）^还款月数－1].
+	 *
 	 * @param amount 金额
 	 * @param yy 年限
 	 * @param rate 月利率
@@ -180,7 +208,8 @@ public class Balance {
 	}
 
 	/**
-	 * 设置公积金贷款金额
+	 * 设置公积金贷款金额.
+	 *
 	 * @param creditProvidentAmount 公积金贷款金额
 	 */
 	public void setCreditProvidentAmount(double creditProvidentAmount) {
@@ -188,7 +217,8 @@ public class Balance {
 	}
 
 	/**
-	 * 设置商业贷款金额
+	 * 设置商业贷款金额.
+	 *
 	 * @param creditCommercialAmount 商业贷款金额
 	 */
 	public void setCreditCommercialAmount(double creditCommercialAmount) {
@@ -196,7 +226,8 @@ public class Balance {
 	}
 
 	/**
-	 * 设置还款年限
+	 * 设置还款年限.
+	 *
 	 * @param creditYear 年限
 	 */
 	public void setCreditYear(int creditYear) {
@@ -206,7 +237,8 @@ public class Balance {
 	}
 
 	/**
-	 * 设置公积金折扣
+	 * 设置公积金折扣.
+	 *
 	 * @param providentRateDiscount 折扣
 	 */
 	public void setProvidentRateDiscount(float providentRateDiscount) {
@@ -215,7 +247,8 @@ public class Balance {
 	}
 
 	/**
-	 * 设置商业贷款折扣
+	 * 设置商业贷款折扣.
+	 *
 	 * @param commercialRateDiscount 折扣
 	 */
 	public void setCommercialRateDiscount(float commercialRateDiscount) {
@@ -223,6 +256,9 @@ public class Balance {
 		commercialRate = getCommercialRate(creditYear)*commercialRateDiscount/1200;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Balance{" +

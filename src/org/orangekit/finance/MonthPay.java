@@ -1,6 +1,5 @@
 package org.orangekit.finance;
 
-// TODO: Auto-generated Javadoc
 /**
  * 每个月的还款明细.
  *

@@ -3,7 +3,6 @@ package org.orangekit.finance;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * Æ½ºâ±í.
  *

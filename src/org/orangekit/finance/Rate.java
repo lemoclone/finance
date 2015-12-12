@@ -1,6 +1,5 @@
 package org.orangekit.finance;
 
-// TODO: Auto-generated Javadoc
 /**
  *  利率表（每一段时期内，比如1-6月，1年，5年）.
  *
